@@ -4,16 +4,18 @@ import "./ChatRoom.css";
 import useChat from "../useChat";
 
 const ChatRoom = (props) => {
-  const { roomId } = props.match.params;
+  const { roomId, senderId } = props.match.params;
   const { messages, sendMessage } = useChat(roomId);
   const [newMessage, setNewMessage] = React.useState("");
+
+  localStorage.setItem("senderId", senderId);
 
   const handleNewMessageChange = (event) => {
     setNewMessage(event.target.value);
   };
 
   const handleSendMessage = () => {
-    sendMessage(newMessage);
+    sendMessage(newMessage, roomId, senderId);
     setNewMessage("");
   };
 
@@ -29,7 +31,8 @@ const ChatRoom = (props) => {
                 message.ownedByCurrentUser ? "my-message" : "received-message"
               }`}
             >
-              {message.body}
+              {message.body}{" "}
+              <span className="senderName">({message.senderId})</span>
             </li>
           ))}
         </ol>

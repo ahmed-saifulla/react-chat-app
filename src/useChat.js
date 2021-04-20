@@ -16,7 +16,8 @@ const useChat = (roomId) => {
     socketRef.current.on(NEW_CHAT_MESSAGE_EVENT, (message) => {
       const incomingMessage = {
         ...message,
-        ownedByCurrentUser: message.senderId === socketRef.current.id,
+        // ownedByCurrentUser: message.senderId === socketRef.current.id,
+        ownedByCurrentUser: message.senderId === localStorage.getItem('senderId'),
       };
       setMessages((messages) => [...messages, incomingMessage]);
     });
@@ -26,10 +27,12 @@ const useChat = (roomId) => {
     };
   }, [roomId]);
 
-  const sendMessage = (messageBody) => {
+  const sendMessage = (messageBody, roomId, senderId) => {
     socketRef.current.emit(NEW_CHAT_MESSAGE_EVENT, {
       body: messageBody,
-      senderId: socketRef.current.id,
+      // roomId: socketRef.current.id,
+      roomId: roomId,
+      senderId: senderId,
     });
   };
 

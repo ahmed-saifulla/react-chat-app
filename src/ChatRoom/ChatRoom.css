@@ -65,3 +65,7 @@
 .messages-container, .new-message-input-field, .send-message-button {
     border-color: #9a9a9a;
 }
+
+.senderName{
+    font-size: small;
+}
