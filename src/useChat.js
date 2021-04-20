@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import socketIOClient from "socket.io-client";
 
 const NEW_CHAT_MESSAGE_EVENT = "newChatMessage";
-const SOCKET_SERVER_URL = "https://react-chat-app-server-saif.herokuapp.com";
+const SOCKET_SERVER_URL = "https://react-chat-app-server-saif.herokuapp.com/";
 
 const useChat = (roomId) => {
   const [messages, setMessages] = useState([]);
@@ -11,7 +11,6 @@ const useChat = (roomId) => {
   useEffect(() => {
     socketRef.current = socketIOClient(SOCKET_SERVER_URL, {
       query: { roomId },
-      transports: ['websocket']
     });
 
     socketRef.current.on(NEW_CHAT_MESSAGE_EVENT, (message) => {
