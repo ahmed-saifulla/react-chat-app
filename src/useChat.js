@@ -11,6 +11,7 @@ const useChat = (roomId) => {
   useEffect(() => {
     socketRef.current = socketIOClient(SOCKET_SERVER_URL, {
       query: { roomId },
+      transports: ['websocket']
     });
 
     socketRef.current.on(NEW_CHAT_MESSAGE_EVENT, (message) => {
